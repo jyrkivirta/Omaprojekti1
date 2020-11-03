@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
-
+//import { Component } from 'react';
+//import tyolista.js from tyolista;
 
 function App() {
   
@@ -50,6 +51,8 @@ keskiarvo = Math.floor(keskiarvo / palkka.length);
 
 return (
     <div>
+      
+      
       <div>
 
       <div>
