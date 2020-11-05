@@ -11,28 +11,31 @@ function App() {
   const initialData = [
     {
       kysymys: "Mitä?", vaihtoehdot: 
-        [{vastaus: "Kyllä.", valittu:0, oikein:0},
-        {vastaus: "Ei.", valittu:0, oikein:1},
-        {vastaus: "Ehkä.", valittu:0, oikein:0},
-        {vastaus: "Tuskin.", valittu:0, oikein:0}]
+        [{vastaus: "Kyllä.", valittu:false, oikein:false},
+        {vastaus: "Ei.", valittu:false, oikein:true},
+        {vastaus: "Ehkä.", valittu:false, oikein:false},
+        {vastaus: "Tuskin.", valittu:false, oikein:false}]
     },
     {
       kysymys: "Was?", vaihtoehdot: 
-        [{vastaus: "Ja.", valittu:0, oikein:1}, 
-        {vastaus: "Nein.", valittu:0, oikein:0}, 
-        {vastaus: "Vielleicht.", valittu:0, oikein:0}, 
-        {vastaus: "Glaube ich nicht.", valittu:0, oikein:0}]
+        [{vastaus: "Ja.", valittu:false, oikein:true}, 
+        {vastaus: "Nein.", valittu:false, oikein:false}, 
+        {vastaus: "Vielleicht.", valittu:false, oikein:false}, 
+        {vastaus: "Glaube ich nicht.", valittu:false, oikein:false}]
     },
     {
       kysymys: "What?", vaihtoehdot: 
-        [{vastaus: "Yes.", valittu:0, oikein:0}, 
-        {vastaus: "No.", valittu: 0, oikein:0}, 
-        {vastaus: "Maybe.", valittu:0, oikein:0}, 
-        {vastaus: "Doubt it.", valittu:0, oikein:1}]
+        [{vastaus: "Yes.", valittu:false, oikein:false}, 
+        {vastaus: "No.", valittu: false, oikein:false}, 
+        {vastaus: "Maybe.", valittu:false, oikein:false}, 
+        {vastaus: "Doubt it.", valittu:false, oikein:true}]
     }
 
   ]
-  const [data, setData] = useState([])
+  const [data, setData] = useState(initialData)
+
+  
+  //setData(initialData)
 
   useEffect(() => {
 
@@ -54,19 +57,23 @@ function App() {
     [data])
 
 
-const tyhjennaMuisti = () => {
+const tyhjennaLomake = () => {
   setData(initialData);
 }
  
+const tyhjennaLocal = () => {
+  localStorage.clear()
+  setData(initialData);
+}
 
 
-//setData(initialData)
+const jotainTapahtuu = (kysymysIndex, vaihtoehtoIndex, event) => {
+  
 
-const jotainTapahtuu = (vaihtoehdot) => {
-  let uusData = data
-  uusData = {...vaihtoehdot.valittu = 1}
+  let uusData = JSON.parse(JSON.stringify(data))
+  uusData[kysymysIndex].vaihtoehdot[vaihtoehtoIndex].valittu=event.target.checked
   setData(uusData)
-  console.log(vaihtoehdot)
+  //console.log(event)
 
 }
 
@@ -78,29 +85,30 @@ const jotainTapahtuu = (vaihtoehdot) => {
     <label for={item[index]}>{initialData[index].vaihtoehdot[value]}</label>
     */
 
-const naytaVaihtoehdot = (vaihtoehdot) => {
-  return vaihtoehdot.map((vaihtoehdot) => <div> 
+const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex) => {
+  return vaihtoehdot.map((vaihtoehto, vaihtoehtoIndex) => <div> 
    
        <input    
           type="checkbox"
-          id={vaihtoehdot.vastaus} 
-          name={vaihtoehdot.vastaus} 
-          //onChange={(vaihtoehdot) => jotainTapahtuu(vaihtoehdot)}
-          //checked={vaihtoehdot.valittu ? 'checked' : ''}
+          id={vaihtoehto.vastaus} 
+          name={vaihtoehto.vastaus} 
+          onChange={(event) => jotainTapahtuu(kysymysIndex, vaihtoehtoIndex, event)}
+          checked={vaihtoehto.valittu}
         ></input>
-        <label for={vaihtoehdot.vastaus}>{vaihtoehdot.vastaus}</label>
+        <label for={vaihtoehto.vastaus}>{vaihtoehto.vastaus}</label>
 </div>
 )};
 
   return (<div>
-    {data.map(( {kysymys, vaihtoehdot}) => {
+    {data.map(( {kysymys, vaihtoehdot}, index) => {
       return <div>
         <p key={kysymys}>{kysymys}</p>
-        {naytaVaihtoehdot(vaihtoehdot)}
+        {naytaVaihtoehdot(vaihtoehdot, index)}
       </div>
     }
     )}
-   <button onClick={tyhjennaMuisti}>Tyhjenna</button>
+   <button onClick={tyhjennaLomake}>Tyhjenna lomake</button>
+   <button onClick={tyhjennaLocal}>Tyhjenna muisti</button>
   </div>
     );
 }
