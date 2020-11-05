@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
-import { useState } from 'react'
-//import LapsiLista from './LapsiLista.js'
+import { useState } from 'react';
+// import Vastaukset1 from './components/Vastaukset1.js';
 //import './App.css';
 
-function App() {
+function App () {
  
-  
-  //const [dataAlustettu, setDataAlustettu] = useState(false)
-
   const initialData = [
     {
       kysymys: "Mitä?", vaihtoehdot: 
@@ -30,15 +27,12 @@ function App() {
         {vastaus: "Maybe.", valittu:false, oikein:false}, 
         {vastaus: "Doubt it.", valittu:false, oikein:true}]
     }
-
   ]
   const [data, setData] = useState(initialData)
-
-  
-  //setData(initialData)
+ 
+  const [painettu, setPainettu] = useState(false)
 
   useEffect(() => {
-
     let jemma = window.localStorage;
     let tempData = jemma.getItem("data")
     if (!tempData) {
@@ -46,13 +40,10 @@ function App() {
       tempData = initialData
     }
     setData(JSON.parse(tempData));
-
   },
     [])
   useEffect(() => {
-
     window.localStorage.setItem("data", JSON.stringify(data))
-
   },
     [data])
 
@@ -77,13 +68,11 @@ const jotainTapahtuu = (kysymysIndex, vaihtoehtoIndex, event) => {
 
 }
 
-/*<input 
-      type="checkbox"
-      id={item[index]} 
-      name={item[index]} 
-    ></input> 
-    <label for={item[index]}>{initialData[index].vaihtoehdot[value]}</label>
-    */
+const vastauksetPainettu = () => {
+  let nappi = painettu
+  nappi = !nappi
+  setPainettu(nappi)
+} 
 
 const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex) => {
   return vaihtoehdot.map((vaihtoehto, vaihtoehtoIndex) => <div> 
@@ -95,6 +84,15 @@ const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex) => {
           onChange={(event) => jotainTapahtuu(kysymysIndex, vaihtoehtoIndex, event)}
           checked={vaihtoehto.valittu}
         ></input>
+       {painettu ? 
+         <input    
+          type="checkbox"
+          id={vaihtoehto.vastaus} 
+          name={vaihtoehto.vastaus} 
+          checked={vaihtoehto.oikein}
+          disabled
+        ></input> : ''
+       }
         <label for={vaihtoehto.vastaus}>{vaihtoehto.vastaus}</label>
 </div>
 )};
@@ -109,6 +107,7 @@ const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex) => {
     )}
    <button onClick={tyhjennaLomake}>Tyhjenna lomake</button>
    <button onClick={tyhjennaLocal}>Tyhjenna muisti</button>
+   <button onClick={vastauksetPainettu}>Näytä oikeat vastaukset</button>
   </div>
     );
 }
