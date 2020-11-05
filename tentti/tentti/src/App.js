@@ -1,7 +1,17 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-// import Vastaukset1 from './components/Vastaukset1.js';
+//import { makeStyles } from '@material-ui/core/styles/'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+//import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import Checkbox from '@material-ui/core/Checkbox';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 //import './App.css';
+
+
 
 function App () {
  
@@ -26,11 +36,19 @@ function App () {
         {vastaus: "No.", valittu: false, oikein:false}, 
         {vastaus: "Maybe.", valittu:false, oikein:false}, 
         {vastaus: "Doubt it.", valittu:false, oikein:true}]
+    },
+    {
+      kysymys: "dfgdg?", vaihtoehdot: 
+        [{vastaus: "Ydfgdfg.", valittu:false, oikein:false}, 
+        {vastaus: "dfg.", valittu: false, oikein:false}, 
+        {vastaus: "Mdfgfg.", valittu:false, oikein:true}, 
+        {vastaus: "sfdt.", valittu:false, oikein:false}]
     }
   ]
   const [data, setData] = useState(initialData)
  
   const [painettu, setPainettu] = useState(false)
+  
 
   useEffect(() => {
     let jemma = window.localStorage;
@@ -77,27 +95,35 @@ const vastauksetPainettu = () => {
 const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex) => {
   return vaihtoehdot.map((vaihtoehto, vaihtoehtoIndex) => <div> 
    
-       <input    
-          type="checkbox"
+       <Checkbox
           id={vaihtoehto.vastaus} 
           name={vaihtoehto.vastaus} 
           onChange={(event) => jotainTapahtuu(kysymysIndex, vaihtoehtoIndex, event)}
           checked={vaihtoehto.valittu}
-        ></input>
+        ></Checkbox>
        {painettu ? 
-         <input    
-          type="checkbox"
+         <Checkbox
           id={vaihtoehto.vastaus} 
           name={vaihtoehto.vastaus} 
           checked={vaihtoehto.oikein}
           disabled
-        ></input> : ''
+        ></Checkbox> : ''
        }
         <label for={vaihtoehto.vastaus}>{vaihtoehto.vastaus}</label>
 </div>
 )};
 
   return (<div>
+    <AppBar position="static">
+          <Toolbar>
+          <IconButton edge="start" color="inherit">         
+          </IconButton>
+          <Button variant="contained" color="primary">
+            TENTIT
+          </Button>
+          </Toolbar>
+    </AppBar>
+    <Card><CardContent>
     {data.map(( {kysymys, vaihtoehdot}, index) => {
       return <div>
         <p key={kysymys}>{kysymys}</p>
@@ -105,9 +131,10 @@ const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex) => {
       </div>
     }
     )}
-   <button onClick={tyhjennaLomake}>Tyhjenna lomake</button>
-   <button onClick={tyhjennaLocal}>Tyhjenna muisti</button>
-   <button onClick={vastauksetPainettu}>Näytä oikeat vastaukset</button>
+    </CardContent></Card>
+   <p><Button position="end" variant="contained" color="primary" onClick={tyhjennaLomake}>Tyhjenna lomake</Button></p>
+   <p><Button edge="end" variant="contained" color="primary" onClick={tyhjennaLocal}>Tyhjenna muisti</Button></p>
+   <p><Button variant="contained" color="primary" onClick={vastauksetPainettu}>Näytä oikeat vastaukset</Button></p>
   </div>
     );
 }
