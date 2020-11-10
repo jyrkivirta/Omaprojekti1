@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-//import { makeStyles } from '@material-ui/core/styles/'
+import { makeStyles } from '@material-ui/core/styles/'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 //import Typography from '@material-ui/core/Typography'
@@ -15,71 +15,66 @@ import Delete from '@material-ui/icons/Delete';
 import AddCircle from '@material-ui/icons/AddCircle';
 //import Icon from '@material-ui/core/Icon/';
 import TextField from '@material-ui/core/TextField';
+import uuid from 'react-uuid';
+//import School from '@material-ui/School';
 
 
 
 function App () {
  
   const initialData = [
-    {tentti: "tentti ykkönen", kysymykset:[
+    {uid:uuid(), tentti: "tentti ykkönen", kysymykset:[
           {
-            kysymys: "Kuka seuraavista kirjailijoista ei kuulu tämän vuoden Finlandia-palkintoehdokkaisiin?", vaihtoehdot: 
-              [{vastaus: "Tommi Kinnunen", valittu:false, oikein:false},
-              {vastaus: "Johannes Ekholm", valittu:false, oikein:true},
-              {vastaus: "Ann-Luise Bertell", valittu:false, oikein:false},
-              {vastaus: "Anni Kytömäki", valittu:false, oikein:false}]
+            uid:uuid(), kysymys: "Kuka seuraavista kirjailijoista ei kuulu tämän vuoden Finlandia-palkintoehdokkaisiin?", vaihtoehdot: 
+              [{uid:uuid(),vastaus: "Tommi Kinnunen", valittu:false, oikein:false},
+              {uid:uuid(),vastaus: "Johannes Ekholm", valittu:false, oikein:true},
+              {uid:uuid(),vastaus: "Ann-Luise Bertell", valittu:false, oikein:false},
+              {uid:uuid(),vastaus: "Anni Kytömäki", valittu:false, oikein:false}]
           },
           {
-            kysymys: "Ketkä kolme kirjailijaa ovat voittaneet viimeiset kolme Finlandia-palkintoa?", vaihtoehdot: 
-              [{vastaus: "Juha Hurme, Laura Lindstedt, Jukka Viikilä", valittu:false, oikein:false}, 
-              {vastaus: "Olli Jalonen, Jukka Viikilä, Laura Lindstedt", valittu:false, oikein:false}, 
-              {vastaus: "Pajtim Statovci, Olli Jalonen, Juha Hurme", valittu:false, oikein:true}, 
-              {vastaus: "Laura Lindstedt, Olli Jalonen, Pajtim Statovci", valittu:false, oikein:false}]
+            uid:uuid(), kysymys: "Ketkä kolme kirjailijaa ovat voittaneet viimeiset kolme Finlandia-palkintoa?", vaihtoehdot: 
+              [{uid:uuid(),vastaus: "Juha Hurme, Laura Lindstedt, Jukka Viikilä", valittu:false, oikein:false}, 
+              {uid:uuid(),vastaus: "Olli Jalonen, Jukka Viikilä, Laura Lindstedt", valittu:false, oikein:false}, 
+              {uid:uuid(),vastaus: "Pajtim Statovci, Olli Jalonen, Juha Hurme", valittu:false, oikein:true}, 
+              {uid:uuid(),vastaus: "Laura Lindstedt, Olli Jalonen, Pajtim Statovci", valittu:false, oikein:false}]
           },
           {
-            kysymys: "Kuka seuraavista kirjailijoista on saanut kaksi Finlandia-palkintoa?", vaihtoehdot: 
-              [{vastaus: "Johanna Sinisalo", valittu:false, oikein:false}, 
-              {vastaus: "Kari Hotakainen", valittu: false, oikein:false}, 
-              {vastaus: "Rosa Liksom", valittu:false, oikein:false}, 
-              {vastaus: "Bo Carpelan", valittu:false, oikein:true}]
+            uid:uuid(), kysymys: "Kuka seuraavista kirjailijoista on saanut kaksi Finlandia-palkintoa?", vaihtoehdot: 
+              [{uid:uuid(),vastaus: "Johanna Sinisalo", valittu:false, oikein:false}, 
+              {uid:uuid(),vastaus: "Kari Hotakainen", valittu: false, oikein:false}, 
+              {uid:uuid(),vastaus: "Rosa Liksom", valittu:false, oikein:false}, 
+              {uid:uuid(),vastaus: "Bo Carpelan", valittu:false, oikein:true}]
           },
           {
-            kysymys: "Kenen runoilijan elämästä kertoo vuoden 2000 Finlandia-palkintokirja Helena Sinervon Runoilijan talossa?", vaihtoehdot: 
-              [{vastaus: "Yrjö Kaijärvi", valittu:false, oikein:false}, 
-              {vastaus: "Sirkka Turkka", valittu: false, oikein:false}, 
-              {vastaus: "Eeva-Liisa Manner", valittu:false, oikein:true}, 
-              {vastaus: "Aila Meriluoto", valittu:false, oikein:false}]
+            uid:uuid(), kysymys: "Kenen runoilijan elämästä kertoo vuoden 2000 Finlandia-palkintokirja Helena Sinervon Runoilijan talossa?", vaihtoehdot: 
+              [{uid:uuid(),vastaus: "Yrjö Kaijärvi", valittu:false, oikein:false}, 
+              {uid:uuid(),vastaus: "Sirkka Turkka", valittu: false, oikein:false}, 
+              {uid:uuid(),vastaus: "Eeva-Liisa Manner", valittu:false, oikein:true}, 
+              {uid:uuid(),vastaus: "Aila Meriluoto", valittu:false, oikein:false}]
           }
         ]
         },
-    {tentti: "tentti kakkonen", kysymykset:[
+    {uid:uuid(), tentti: "tentti kakkonen", kysymykset:[
           {
-            kysymys: "Kuksdfsdfeuraavista kirjailijoista ei kuulu tämän vuoden Finlandia-palkintoehdokkaisiin?", vaihtoehdot: 
-              [{vastaus: "Tommi Kinnunen", valittu:false, oikein:false},
-              {vastaus: "Johannes Ekholm", valittu:false, oikein:true},
-              {vastaus: "Ann-Luise Bertell", valittu:false, oikein:false},
-              {vastaus: "Anni Kytömäki", valittu:false, oikein:false}]
+            uid:uuid(), kysymys: "Uusi kysymys ykkönen", vaihtoehdot: 
+              [{uid:uuid(),vastaus: "vastaus I", valittu:false, oikein:false},
+              {uid:uuid(),vastaus: "vastaus II", valittu:false, oikein:true}]
           },
           {
-            kysymys: "Ketkä kolme kirjailijaa ovat voittaneet viimeiset kolme Finlandia-palkintoa?", vaihtoehdot: 
-              [{vastaus: "Juha Hurme, Laura Lindstedt, Jukka Viikilä", valittu:false, oikein:false}, 
-              {vastaus: "Olli Jalonen, Jukka Viikilä, Laura Lindstedt", valittu:false, oikein:false}, 
-              {vastaus: "Pajtim Statovci, Olli Jalonen, Juha Hurme", valittu:false, oikein:true}, 
-              {vastaus: "Laura Lindstedt, Olli Jalonen, Pajtim Statovci", valittu:false, oikein:false}]
+            uid:uuid(), kysymys: "Uusi kysymys kakkonen", vaihtoehdot: 
+              [{uid:uuid(),vastaus: "vastaus 1", valittu:false, oikein:false}, 
+              {uid:uuid(),vastaus: "vastaus 2", valittu:false, oikein:false}]
           },
           {
-            kysymys: "Kuka seuraavista kirjailijoista on saanut kaksi Finlandia-palkintoa?", vaihtoehdot: 
-              [{vastaus: "Johanna Sinisalo", valittu:false, oikein:false}, 
-              {vastaus: "Kari Hotakainen", valittu: false, oikein:false}, 
-              {vastaus: "Rosa Liksom", valittu:false, oikein:false}, 
-              {vastaus: "Bo Carpelan", valittu:false, oikein:true}]
+            uid:uuid(), kysymys: "Uusi kysymys kolmonen", vaihtoehdot: 
+              [{uid:uuid(),vastaus: "vastaus a", valittu:false, oikein:false}, 
+              {uid:uuid(),vastaus: "vastaus b", valittu: false, oikein:false} 
+              ]
           },
           {
-            kysymys: "Kenen runoilijan elämästä kertoo vuoden 2000 Finlandia-palkintokirja Helena Sinervon Runoilijan talossa?", vaihtoehdot: 
-              [{vastaus: "Yrjö Kaijärvi", valittu:false, oikein:false}, 
-              {vastaus: "Sirkka Turkka", valittu: false, oikein:false}, 
-              {vastaus: "Eeva-Liisa Manner", valittu:false, oikein:true}, 
-              {vastaus: "Aila Meriluoto", valittu:false, oikein:false}]
+            uid:uuid(), kysymys: "Uusi kysymys nelonen", vaihtoehdot: 
+              [{uid:uuid(),vastaus: "vastaus x", valittu:false, oikein:false}, 
+              {uid:uuid(),vastaus: "vastaus y", valittu: false, oikein:false}]
           }
         ]
         }
@@ -90,6 +85,14 @@ function App () {
   const [painettu, setPainettu] = useState(false)
   
   const [valittuTentti, setValittuTentti] = useState(0)
+
+  const useStyles = makeStyles(() => ({
+    flexTyyli: {
+      flex: 1,
+    }
+  }));
+  
+  const classes = useStyles();
 
   useEffect(() => {
     let jemma = window.localStorage;
@@ -121,7 +124,7 @@ const jotainTapahtuu = (kysymysIndex, vaihtoehtoIndex, event, valittuTentti) => 
   
 
   let uusData = JSON.parse(JSON.stringify(data))
-  uusData[kysymysIndex].vaihtoehdot[vaihtoehtoIndex].valittu=event.target.checked
+  uusData[valittuTentti].kysymykset[kysymysIndex].vaihtoehdot[vaihtoehtoIndex].valittu=event.target.checked
   setData(uusData)
   //console.log(event)
 
@@ -153,13 +156,31 @@ const poistaVaihtoehto = (kysymysIndex, vaihtoehtoIndex, valittuTentti) => {
 
 const lisaaVaihtoehto = (kysymysIndex, valittuTentti) => {
   let uusData = JSON.parse(JSON.stringify(data))
-  uusData[valittuTentti].kysymykset[kysymysIndex].vaihtoehdot.push({vastaus: "", valittu:false, oikein:false})
+  uusData[valittuTentti].kysymykset[kysymysIndex].vaihtoehdot.push({uid:uuid(),vastaus: "", valittu:false, oikein:false})
   setData(uusData)
 }
 const lisaaKysymys = (valittuTentti) => {
   let uusData = JSON.parse(JSON.stringify(data))
-  uusData[valittuTentti].kysymykset.push({kysymys:"", vaihtoehdot:[{vastaus: "", valittu:false, oikein:false}]})
+  uusData[valittuTentti].kysymykset.push({uid:uuid(), kysymys:"", vaihtoehdot:[{uid:uuid(),vastaus: "", valittu:false, oikein:false}]})
   setData(uusData)
+}
+
+const poistaKysymys = (kysymysIndex, valittuTentti) => {
+  let uusData = JSON.parse(JSON.stringify(data))
+  uusData[valittuTentti].kysymykset.splice(kysymysIndex, 1)
+  setData(uusData);
+}
+
+const lisaaTentti = (dataIndex) => {
+  let uusData = JSON.parse(JSON.stringify(data))
+  uusData.push({uid:uuid(),tentti:"Uusi tentti", kysymykset:[{uid:uuid(), kysymys:"", vaihtoehdot:[{uid:uuid(),vastaus: "", valittu:false, oikein:false}]}]})
+  setData(uusData)
+}
+
+const poistaTentti = () => {
+  let uusData = JSON.parse(JSON.stringify(data))
+  uusData.splice(-1, 1)
+  setData(uusData);
 }
 
 const aktiivinenTentti = (tenttiIndex) => {
@@ -169,6 +190,7 @@ const aktiivinenTentti = (tenttiIndex) => {
 
 const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex, valittuTentti) => {
   return vaihtoehdot.map((vaihtoehto, vaihtoehtoIndex) => <div> 
+    <CardContent>
        <Checkbox
           id={vaihtoehto.vastaus} 
           name={vaihtoehto.vastaus} 
@@ -184,64 +206,78 @@ const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex, valittuTentti) => {
         ></Checkbox>
        }
         <label for={vaihtoehto.vastaus}>
-          <TextField 
+          <TextField
+              key={vaihtoehto.uid}
               variant="outlined"
               type="text"
-              
+              style = {{width: 450}}
               onChange={(event) => inputMuutettu(event, kysymysIndex, vaihtoehtoIndex, valittuTentti)}
               value={vaihtoehto.vastaus}>
           </TextField>
           {/*tästä kohtaa jos ottaa inputin pois ja laittaa tilalle {vaihtoehto.vastaus}, niin tulee oppilaan näkymä*/}
         </label>
         <IconButton
-          onClick={() => poistaVaihtoehto(kysymysIndex, vaihtoehtoIndex)}
+          onClick={() => poistaVaihtoehto(kysymysIndex, vaihtoehtoIndex, valittuTentti)}
         ><Delete />
         </IconButton>
-        
+  </CardContent>      
 </div>
 )};
 
   return (<div>
     <AppBar position="static">
           <Toolbar>
-          <IconButton edge="start" color="inherit">         
-          </IconButton>
-          <Button variant="contained" color="primary">
-            TENTIT
-          </Button>
+          {/* <Icon edge="start" color="inherit"><School/>         
+          </Icon> */}
           </Toolbar>
     </AppBar>
+    <Card><CardContent>
     <div>
       {data.map((tentti, index) => 
         <Button onClick={() => aktiivinenTentti(index)}> {tentti.tentti} </Button>
       )}
+      <IconButton onClick={() => lisaaTentti()}
+        ><AddCircle />
+      </IconButton>
     </div>
-    <Card><CardContent>
     {data[valittuTentti].kysymykset.map(( {kysymys, vaihtoehdot}, index) => {
-      return <div>
-        <p>
+      return (
+       <div>
           <TextField 
+              key={index.uid}
               variant="outlined"
               type="text"
+              style = {{width: 800}}
               onChange={(event) => kysymysMuutettu(index, event, valittuTentti)}
               value={kysymys}>
           </TextField>
           {/*tästä kohtaa jos ottaa textfieldin pois ja laittaa tilalle {kysymys}, niin tulee oppilaan näkymä*/}
-        </p>
+        
+          <IconButton
+            onClick={() => poistaKysymys(index, valittuTentti)}
+            ><Delete />
+          </IconButton>
+         
         {naytaVaihtoehdot(vaihtoehdot, index, valittuTentti)}
         <IconButton
           onClick={() => lisaaVaihtoehto(index, valittuTentti)}
         ><AddCircle />
         </IconButton>
+        
       </div>
+      )
     }
-    )}
-    </CardContent>
+    )}</CardContent></Card>
       <IconButton
           onClick={() => lisaaKysymys(valittuTentti)}
           ><AddCircle />
       </IconButton>
-    </Card>
+      {/* <Button
+        variant="outlined"
+        type="text">
+      </Button> */}
+     
+
    <p><Button variant="contained" color="primary" onClick={tyhjennaLomake}>Tyhjenna lomake</Button></p>
    <p><Button variant="contained" color="primary" onClick={tyhjennaLocal}>Tyhjenna muisti</Button></p>
    <p><Button variant="contained" color="primary" onClick={vastauksetPainettu}>{painettu ? "Piilota oikeat vastaukset" : "Näytä oikeat vastaukset"}</Button></p>
