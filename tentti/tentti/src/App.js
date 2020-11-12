@@ -190,7 +190,7 @@ const aktiivinenTentti = (tenttiIndex) => {
 
 const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex, valittuTentti) => {
   return vaihtoehdot.map((vaihtoehto, vaihtoehtoIndex) => <div> 
-    <CardContent>
+    <CardContent key={vaihtoehto.uid}>
        <Checkbox
           id={vaihtoehto.vastaus} 
           name={vaihtoehto.vastaus} 
@@ -207,7 +207,7 @@ const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex, valittuTentti) => {
        }
         <label for={vaihtoehto.vastaus}>
           <TextField
-              key={vaihtoehto.uid}
+              
               variant="outlined"
               type="text"
               style = {{width: 450}}
@@ -243,8 +243,9 @@ const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex, valittuTentti) => {
     {data[valittuTentti].kysymykset.map(( {kysymys, vaihtoehdot}, index) => {
       return (
        <div>
+        <CardContent key={index.uid}>
           <TextField 
-              key={index.uid}
+              
               variant="outlined"
               type="text"
               style = {{width: 800}}
@@ -257,13 +258,13 @@ const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex, valittuTentti) => {
             onClick={() => poistaKysymys(index, valittuTentti)}
             ><Delete />
           </IconButton>
-         
-        {naytaVaihtoehdot(vaihtoehdot, index, valittuTentti)}
-        <IconButton
-          onClick={() => lisaaVaihtoehto(index, valittuTentti)}
-        ><AddCircle />
-        </IconButton>
         
+        {naytaVaihtoehdot(vaihtoehdot, index, valittuTentti)}
+          <IconButton
+            onClick={() => lisaaVaihtoehto(index, valittuTentti)}
+          ><AddCircle />
+          </IconButton>
+        </CardContent> 
       </div>
       )
     }

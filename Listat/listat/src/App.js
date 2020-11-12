@@ -1,37 +1,159 @@
-import logo from './logo.svg';
-import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react'
+import LapsiLista from './LapsiLista'
+import uuid from 'react-uuid'
+//import './App.css';
+// lukumäärä???
 
 
+//let u = {0:"pekka",1:"leena"}
 
 function App() {
+  //array destructuring 
+  //let lapset = [{lapsenNimi:"Lissa"},{lapsenNimi:"Kaapo"}] 
+  const [data, setData] = useState([])
+  const [dataAlustettu, setDataAlustettu] = useState(false)
 
-  const [lista, setLista] = useState(['John', 'Paul', 'Ringo','George']);  //vasen lista
-  const [listaKakkonen, setListaKakkonen] = useState(['Juhani','Tuomas','Aapo','Simeoni','Timo','Lauri','Eero']); //oikea lista
-  const [uusiLista, setUusiLista] = useState([])  //lista johon kirjataan mitä on klikattu
+  //const [sukunimi, setSukunimi]=useState("")???
+
+  const initialData = {ihmiset: [
+    {
+      uid:uuid(),etunimi: "Pekka", sukunimi: "Jakamo", ikä: 29, jälkikasvu: [{ uid:uuid(),lapsenNimi: "Lissa", nimet: { ensimmäinen_nimi: "Lissa", toinen_nimi: "Riitta" } },
+      { lapsenNimi: "Kaapo" }]
+    },
+    { uid:uuid(),etunimi: "Jarmo", sukunimi: "Jakamo", ikä: 49 }] }
+
+  const [selected, setSelected] = useState([])
   
-  const indexLista = (item, index) => {           //kun klikataan, klikattu nimi tulis tässä listaan
-    let listaTila = uusiLista.concat(item)
-    setLista(listaTila);
-  };
+  useEffect(() => {
 
-  const siirraOikealle = () => {            // kun nuoli-nappia painetaan, tämä heittää uusiListan oikean listan perään
-    let siirtoLista = listaKakkonen.concat(uusiLista);  // ja tähän pitäs sit lisätä nimen poistaminen vasemmasta listasta
-    setUusiLista(siirtoLista);
-  };
-  const siirraVasemmalle = () => {};
-  
+    const fetchData = async () => {
 
-  return (
-    <div> {
-      lista.map((item, index) => <p onClick={indexLista(item, index)}>{index + '. ' + item}</p>)
-      } 
-        <button onClick={siirraVasemmalle()}>{'<-'}</button>
-        <button onClick={siirraOikealle()}>{'->'}</button>
-        {
-      listaKakkonen.map((item, index) => <p onClick={indexLista(item, index)}>{index + '. ' + item}</p>)
-      }
-    </div>
+      let result = await Axios.get ("http://localhost:3005/ihmiset")
+      setData(result.data);
+      setDataAlustettu(true)
+    }
+/* 
+    let jemma = window.localStorage;
+    let tempData = JSON.parse(jemma.getItem("data"))
+    if (tempData == null) {
+      jemma.setItem("data", JSON.stringify(initialData))
+      tempData = initialData
+    } */ 
+    /*setData(tempData);
+    setDataAlustettu(true)*/
+    fetchData();
+  }, [])
+
+  useEffect(() => {
+
+    let tempData
+
+    const fetchData = async () => {
+
+      let result = await Axios.post ("http://localhost:3005/ihmiset", initialData)
+      //setData(result.data);
+      //setDataAlustettu(true)
+    }
+/* 
+    let jemma = window.localStorage;
+    let tempData = JSON.parse(jemma.getItem("data"))
+    if (tempData == null) {
+      jemma.setItem("data", JSON.stringify(initialData))
+      tempData = initialData
+    } */ 
+    /*setData(tempData);
+    setDataAlustettu(true)*/
+    fetchData();
+
+    if (dataAlustettu) {
+      
+      //window.localStorage.setItem("data", JSON.stringify(data))
+    }
+  }, [data])
+
+
+  const painikePainettu = () => {
+
+    let uusdata = JSON.parse(JSON.stringify(data));
+    //    let uusdata = [...data];
+    //   uusdata[0].jälkikasvu[0].lapsenNimi="Mikko"
+    // let uusdata = [...data];
+    let lopullinenData = data.concat(uusdata)
+    setData(lopullinenData)
+    //setRows([]);
+  }
+  const näytäJälkikasvu = (index) => {
+    if (data[index].jälkikasvu !== undefined) {
+      return data[index].jälkikasvu.map((alkio, lapsenIndex) =>
+        <div key={alkio.uid}>
+          <input onChange={(e) => { lapsenNimiMuuttui(e, index, lapsenIndex) }} value={alkio.lapsenNimi}>
+          </input>
+        </div>)
+
+    }
+  }
+  const lapsenNimiMuuttui = (event, vanhemmanIndex, lapsenIndex) => {
+
+    let syväKopio = JSON.parse(JSON.stringify(data))
+    syväKopio[vanhemmanIndex].jälkikasvu[lapsenIndex].lapsenNimi = event.target.value;
+    setData(syväKopio)
+
+  }
+  const sukunimiMuuttui = (event, index) => {
+
+    let syväKopio = JSON.parse(JSON.stringify(data))
+    syväKopio[index].sukunimi = event.target.value;
+    setData(syväKopio)
+
+  }
+  const etunimiMuuttui = (event, index) => {
+
+    let syväKopio = JSON.parse(JSON.stringify(data))
+    syväKopio[index].etunimi = event.target.value;
+    setData(syväKopio)
+
+  }
+
+  const ikäMuuttui = (event, index) => {
+
+    let syväKopio = JSON.parse(JSON.stringify(data))
+    syväKopio[index].ikä = event.target.value;
+    setData(syväKopio)
+
+  }
+  const lisääHenkilö = () => {
+    let syväKopio = JSON.parse(JSON.stringify(data))
+    let uusiHenkilö= {uid:uuid(),etunimi: "", sukunimi: "", ikä: 0}
+    syväKopio.push(uusiHenkilö) 
+    setData(syväKopio)
+  }
+  const poistaHenkilö = (index) => {
+    let syväKopio = JSON.parse(JSON.stringify(data))
+    syväKopio.splice(index,1)
+    setData(syväKopio)
+  }
+
+
+  return (<div>
+
+    {data.map((item, index) => <div key={item.uid}>
+    <input onChange={(event) => etunimiMuuttui(event, index)}
+        value={item.etunimi}> 
+      </input>
+      <input onChange={(event) => sukunimiMuuttui(event, index)}
+        value={item.sukunimi}>
+      </input>
+      <input onChange={(event) => ikäMuuttui(event, index)}
+         value={item.ikä}>
+      </input>
+      <button onClick={()=>poistaHenkilö(index)}>Poista henkilö</button>
+      {item.jälkikasvu ? <LapsiLista lapsenNimiMuuttui={lapsenNimiMuuttui} parentIndex={index} lapsiLista={item.jälkikasvu}></LapsiLista> : ""}
+    </div>)}
+
+
+    <button onClick={lisääHenkilö}>Lisää henkilö</button>
+  </div>
   );
 }
 
