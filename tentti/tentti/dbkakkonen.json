@@ -1,0 +1,57 @@
+[
+    {"uid":uuid(), "tentti": "tentti ykkönen","kysymykset":[
+          {
+            "uid":uuid(), "kysymys": "Kuka seuraavista kirjailijoista ei kuulu tämän vuoden Finlandia-palkintoehdokkaisiin?", "vaihtoehdot": 
+              [{"uid":uuid(),"vastaus": "Tommi Kinnunen", "valittu":false, "oikein":false},
+              {"uid":uuid(),"vastaus": "Johannes Ekholm", "valittu":false, "oikein":true},
+              {"uid":uuid(),"vastaus": "Ann-Luise Bertell", "valittu":false, "oikein":false},
+              {"uid":uuid(),"vastaus": "Anni Kytömäki", "valittu":false, "oikein":false}]
+          },
+          {
+            "uid":uuid(), "kysymys": "Ketkä kolme kirjailijaa ovat voittaneet viimeiset kolme Finlandia-palkintoa?", "vaihtoehdot": 
+              [{"uid":uuid(),"vastaus": "Juha Hurme, Laura Lindstedt, Jukka Viikilä", "valittu":false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "Olli Jalonen, Jukka Viikilä, Laura Lindstedt", "valittu":false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "Pajtim Statovci, Olli Jalonen, Juha Hurme", "valittu":false, "oikein":true}, 
+              {"uid":uuid(),"vastaus": "Laura Lindstedt, Olli Jalonen, Pajtim Statovci", "valittu":false, "oikein":false}]
+          },
+          {
+            "uid":uuid(), "kysymys": "Kuka seuraavista kirjailijoista on saanut kaksi Finlandia-palkintoa?", "vaihtoehdot": 
+              [{"uid":uuid(),"vastaus": "Johanna Sinisalo", "valittu":false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "Kari Hotakainen", "valittu":false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "Rosa Liksom", "valittu":false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "Bo Carpelan", "valittu":false, "oikein":true}]
+          },
+          {
+            "uid":uuid(), "kysymys": "Kenen runoilijan elämästä kertoo vuoden 2000 Finlandia-palkintokirja Helena Sinervon Runoilijan talossa?", vaihtoehdot: 
+              [{"uid":uuid(),"vastaus": "Yrjö Kaijärvi", "valittu":false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "Sirkka Turkka", "valittu": false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "Eeva-Liisa Manner", "valittu":false, "oikein":true}, 
+              {"uid":uuid(),"vastaus": "Aila Meriluoto", "valittu":false, "oikein":false}]
+          }
+        ]
+        },
+    {"uid":uuid(), "tentti": "tentti kakkonen", "kysymykset":[
+          {
+            "uid":uuid(), "kysymys": "Uusi kysymys ykkönen", "vaihtoehdot": 
+              [{"uid":uuid(),"vastaus": "vastaus I", "valittu":false, "oikein":false},
+              {"uid":uuid(),"vastaus": "vastaus II", "valittu":false, "oikein":true}]
+          },
+          {
+            "uid":uuid(), "kysymys": "Uusi kysymys kakkonen", "vaihtoehdot": 
+              [{"uid":uuid(),"vastaus": "vastaus 1", "valittu":false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "vastaus 2", "valittu":false, "oikein":false}]
+          },
+          {
+            "uid":uuid(), "kysymys": "Uusi kysymys kolmonen", "vaihtoehdot": 
+              [{"uid":uuid(),"vastaus": "vastaus a", "valittu":false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "vastaus b", "valittu": false, "oikein":false} 
+              ]
+          },
+          {
+            "uid":uuid(), "kysymys": "Uusi kysymys nelonen", "vaihtoehdot": 
+              [{"uid":uuid(),"vastaus": "vastaus x", "valittu":false, "oikein":false}, 
+              {"uid":uuid(),"vastaus": "vastaus y", "valittu": false, "oikein":false}]
+          }
+        ]
+        }
+      ]
