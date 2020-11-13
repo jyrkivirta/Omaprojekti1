@@ -17,7 +17,6 @@ import AddCircle from '@material-ui/icons/AddCircle';
 import TextField from '@material-ui/core/TextField';
 import uuid from 'react-uuid';
 //import School from '@material-ui/School';
-import axios from 'axios';
 
 
 
@@ -82,14 +81,10 @@ function App () {
       ]
 
   const [data, setData] = useState(initialData)
-
-  const [dataAlustettu, setDataAlustettu] = useState(false)
-
+ 
   const [painettu, setPainettu] = useState(false)
   
   const [valittuTentti, setValittuTentti] = useState(0)
-
-  //const [selected, setSelected] = useState([])
 
   const useStyles = makeStyles(() => ({
     flexTyyli: {
@@ -100,58 +95,17 @@ function App () {
   const classes = useStyles();
 
   useEffect(() => {
-    const createData = async() => {
-      
-      try {
-
-        let result = await axios.post("http://localhost:3005/tentit", initialData)
-        setData(initialData)
-        setDataAlustettu(true)
-
-      } catch (exception) {
-        alert("Tietokannan alustaminen epäonnistui")
-      }
+    let jemma = window.localStorage;
+    let tempData = jemma.getItem("data")
+    if (!tempData) {
+      jemma.setItem("data", JSON.stringify(initialData))
+      tempData = initialData
     }
-
-    const fetchData = async () => {
-      try {
-        let result = await axios.get("http://localhost:3005/tentit")
-        if (result.data.length > 0) {
-          setData(result.data);
-          setDataAlustettu(true)
-        } else {
-          throw ("Nyt pitää data kyllä alustaa!")
-        }
-      }
-      catch (exception) {
-        createData();
-        console.log(exception)
-      }
-    }
-    fetchData();
-
-    // let jemma = window.localStorage;
-    // let tempData = jemma.getItem("data")
-    // if (!tempData) {
-    //   jemma.setItem("data", JSON.stringify(initialData))
-    //   tempData = initialData
-    // }
-    // setData(JSON.parse(tempData));
+    setData(JSON.parse(tempData));
   },
     [])
-  
   useEffect(() => {
-    const updateData = async () => {
-      try {
-        let result = await axios.put("http://localhost:3005/tentit", data)
-      } catch (exception) {
-        console.log("Datan päivitys ei onnistunut")
-      }
-    }
-  
-    if (dataAlustettu) {
-      updateData();
-    }
+    window.localStorage.setItem("data", JSON.stringify(data))
   },
     [data])
 
@@ -280,7 +234,7 @@ const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex, valittuTentti) => {
     <Card><CardContent>
     <div>
       {data.map((tentti, index) => 
-        <Button key={tentti.uid} onClick={() => aktiivinenTentti(index)}> {tentti.tentti} </Button>
+        <Button onClick={() => aktiivinenTentti(index)}> {tentti.tentti} </Button>
       )}
       <IconButton onClick={() => lisaaTentti()}
         ><AddCircle />
