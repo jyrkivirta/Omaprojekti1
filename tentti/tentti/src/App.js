@@ -18,6 +18,7 @@ import TextField from '@material-ui/core/TextField';
 import uuid from 'react-uuid';
 //import School from '@material-ui/School';
 import { useReducer } from 'react';
+import TentinNimiDialog from './TentinNimiDialog.js'
 
 const initialData = [
   {uid:uuid(), tentti: "tentti ykkönen", kysymykset:[
@@ -87,7 +88,7 @@ function reducer(state, action) {
       return action.data;
 
     case "TEMP_DATA":
-      return JSON.parse(action.data);
+      return action.data;
 
     case "JOTAIN_TAPAHTUU":
       uusData[action.data.valittuTentti].kysymykset[action.data.kysymysIndex].vaihtoehdot[action.data.vaihtoehtoIndex].valittu=action.data.event.target.checked;
@@ -151,7 +152,7 @@ function App () {
       jemma.setItem("data", JSON.stringify(initialData))
       tempData = initialData
     }
-    dispatch({ type: "TEMP_DATA", data: tempData })
+    dispatch({ type: "TEMP_DATA", data: JSON.parse(tempData) })
     //setData(JSON.parse(tempData));
   },
     [])
@@ -185,6 +186,15 @@ const vastauksetPainettu = () => {
   let nappi = painettu
   nappi = !nappi
   setPainettu(nappi)
+}
+
+const [dialogiNaytto, setDialogiNaytto] = useState(false);
+
+const naytaDialogi = () => {
+  let dialogiNappi = dialogiNaytto
+  dialogiNappi = !dialogiNappi
+  setDialogiNaytto(dialogiNappi)
+
 }
 
 const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex, valittuTentti) => {
@@ -236,9 +246,14 @@ const naytaVaihtoehdot = (vaihtoehdot, kysymysIndex, valittuTentti) => {
         <Button key={index.uid} onClick={() => aktiivinenTentti(index)}> 
         {tentti.tentti} </Button>
       )}
-      <IconButton onClick={() => dispatch({type: "LISÄÄ_TENTTI", data:{}  }) } 
-        ><AddCircle />
+      <IconButton onClick={ () => { 
+                        naytaDialogi();  
+                        dispatch({type: "LISÄÄ_TENTTI", data:{}  });  
+                            }      
+                      }
+                  ><AddCircle />
       </IconButton>
+      {dialogiNaytto && <TentinNimiDialog></TentinNimiDialog>}
     </div>
     {state[valittuTentti].kysymykset.map(( {kysymys, vaihtoehdot}, index) => {
       return (
