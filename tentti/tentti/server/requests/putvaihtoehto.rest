@@ -1,0 +1,9 @@
+PUT http://localhost:4000/paivitavaihtoehto/3
+Content-Type:application/json
+
+{
+    "vastaus":"uusivastaus",
+  //"kysymys_id":"1",
+    "valittu": false,
+    "oikein": false
+}

@@ -1,0 +1,6 @@
+POST http://localhost:4000/tentit
+Content-Type:application/json
+
+{
+    "tentti":"tahanuudententinnimi"
+}

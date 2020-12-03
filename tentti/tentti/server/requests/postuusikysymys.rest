@@ -1,0 +1,7 @@
+POST http://localhost:4000/kysymykset
+Content-Type:application/json
+
+{
+    "teksti":"uudenkysymyksenteksti",
+    "tentti_id":"1"
+}

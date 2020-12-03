@@ -154,23 +154,79 @@ function App () {
 
 // USE EFFECTIT
 
-
-  useEffect(() => {
-    let jemma = window.localStorage;
-    let tempData = jemma.getItem("data")
-    if (!tempData) {
-      jemma.setItem("data", JSON.stringify(initialData))
-      tempData = initialData
-    }
-    dispatch({ type: "TEMP_DATA", data: JSON.parse(tempData) })
-    //setData(JSON.parse(tempData));
-  },
-    [])
+useEffect(() => {
+  const createData = async() => {
     
-  useEffect(() => {
-    window.localStorage.setItem("data", JSON.stringify(state))
-  },
-    [state])
+    try {
+
+      let result = await axios.post("http://localhost:4000/tentit", initialData)
+      setData(initialData)
+      setDataAlustettu(true)
+
+    } catch (exception) {
+      alert("Tietokannan alustaminen epäonnistui")
+    }
+  }
+
+  const fetchData = async () => {
+    try {
+      let result = await axios.get("http://localhost:4000/tentit")
+      if (result.data.length > 0) {
+        setData(result.data);
+        setDataAlustettu(true)
+      } else {
+        throw ("Nyt pitää data kyllä alustaa!")
+      }
+    }
+    catch (exception) {
+      createData();
+      console.log(exception)
+    }
+  }
+  fetchData();
+
+  // let jemma = window.localStorage;
+  // let tempData = jemma.getItem("data")
+  // if (!tempData) {
+  //   jemma.setItem("data", JSON.stringify(initialData))
+  //   tempData = initialData
+  // }
+  // setData(JSON.parse(tempData));
+},
+  [])
+
+useEffect(() => {
+  const updateData = async () => {
+    try {
+      let result = await axios.put("http://localhost:4000/tentit", state)
+    } catch (exception) {
+      console.log("Datan päivitys ei onnistunut")
+    }
+  }
+
+  if (dataAlustettu) {
+    updateData();
+  }
+},
+  [state])
+
+
+  // useEffect(() => {
+  //   let jemma = window.localStorage;
+  //   let tempData = jemma.getItem("data")
+  //   if (!tempData) {
+  //     jemma.setItem("data", JSON.stringify(initialData))
+  //     tempData = initialData
+  //   }
+  //   dispatch({ type: "TEMP_DATA", data: JSON.parse(tempData) })
+  //   //setData(JSON.parse(tempData));
+  // },
+  //   [])
+    
+  // useEffect(() => {
+  //   window.localStorage.setItem("data", JSON.stringify(state))
+  // },
+  //   [state])
 
 
 //FUNKTIOT
