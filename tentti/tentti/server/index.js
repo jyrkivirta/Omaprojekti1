@@ -1,11 +1,19 @@
 const express = require('express')
 const app = express()
 const port = 4000
+var cors = require('cors')
 //var bodyParser = require('body-parser')
 
 // notice here I'm requiring my database adapter file
 // and not requiring node-postgres directly
 const db = require('./db')
+
+var corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+app.use(cors(corsOptions)) // Tämä ehkäsee sen, että jokaseen GETtiin ei tarvii lisätä corssia.
+
 
 app.use(express.json())
 
@@ -26,7 +34,7 @@ app.use(express.json())
 
 //query builder!! -> ORM Sequelize, JOOQ...
 app.get('/tuotentti/:id', (req, response, next) => {   
-  db.query('SELECT * FROM tentit WHERE id = $1', [req.params.id], (err, res) => {
+  db.query('SELECT * FROM tentit WHERE id=$1', [req.params.id], (err, res) => {
     if (err) {  
       return next(err)
     }
@@ -47,6 +55,15 @@ app.get('/tuovaihtoehto/:id', (req, response, next) => {
       return next(err)
     }
     response.send(res.rows[0])
+  })
+})
+
+app.get('/tuooppilaat', (req, response, next) => {   
+  db.query('SELECT * FROM oppilaslista', (err, res) => {
+    if (err) {  
+      return next(err)
+    }
+    response.send(res.rows)
   })
 })
 
@@ -139,3 +156,6 @@ app.put('/paivitavaihtoehto/:id'), (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
+// app.listen(80, function () {
+//   console.log('CORS-enabled web server listening on port 80')
+// })
