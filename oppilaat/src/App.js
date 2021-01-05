@@ -8,16 +8,17 @@ function App() {
 
   const [data, setData] = useState([])
 
-
+useEffect(() => {
 
   const fetchData = async () => {
 
       let result = await axios.get ("http://localhost:4000/tuooppilaat")
       setData(result.data);
     }
-
+console.log("moi")
   fetchData();
-  
+  },
+  []);
 
   return (
     <div>

@@ -17,6 +17,11 @@ app.use(cors(corsOptions)) // Tämä ehkäsee sen, että jokaseen GETtiin ei tar
 
 app.use(express.json())
 
+
+// app.use(function (req, res, next) {
+//   console.log('Kello on:', Date.now())
+//   next()
+// })
 // // parse application/x-www-form-urlencoded
 // app.use(bodyParser.urlencoded({ extended: false }))
 
